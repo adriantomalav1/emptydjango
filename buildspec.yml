@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+
+  build:
+    commands:
+      - echo "Building application..."
+      - python manage.py collectstatic --noinput
+      - zip -r django-app.zip * -x "venv/*" ".git/*"
+
+artifacts:
+  files:
+    - django-app.zip
+  discard-paths: yes
+
